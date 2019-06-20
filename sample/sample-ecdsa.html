@@ -29,7 +29,7 @@ function doSign() {
 
   var sig = new KJUR.crypto.Signature({"alg": sigalg});
   sig.init({d: prvkey, curve: curve});
-  sig.updateString(msg1);
+  sig.updateHex(msg1);
   var sigValueHex = sig.sign();
   
   f1.sigval1.value = sigValueHex;
@@ -45,7 +45,7 @@ function doVerify() {
 
   var sig = new KJUR.crypto.Signature({"alg": sigalg, "prov": "cryptojs/jsrsa"});
   sig.init({xy: pubkey, curve: curve});
-  sig.updateString(msg1);
+  sig.updateHex(msg1);
   var result = sig.verify(sigval);
   if (result) {
     alert("valid ECDSA signature");
@@ -100,7 +100,7 @@ Signature Algorithm:
 <option value="SHA1withECDSA">SHA1withECDSA
 </select><br/>
 
-Message string to be signed: 
+Message string to be signed (hex):
 <input type="text" name="msg1" value="aaa" size="100"/><br/>
 <input type="button" value="sign message" onClick="doSign();"/><br/>
 <p>
